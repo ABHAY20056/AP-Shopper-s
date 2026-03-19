@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AP-Shopper's — Home</title>
+
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Playfair+Display:wght@700;800&family=Lato:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+  <!-- ══════════════════════════════════════════
+       TOAST CONTAINER
+  ════════════════════════════════════════════ -->
+  <div id="toastContainer" class="toast-container position-fixed top-0 end-0 p-3"></div>
+
+  <!-- ══════════════════════════════════════════
+       NAVBAR (Sticky + Offcanvas for Mobile)
+  ════════════════════════════════════════════ -->
+  <nav class="navbar navbar-expand-lg ap-navbar fixed-top" id="mainNavbar">
+    <div class="container-xl">
+
+      <!-- Brand -->
+      <a class="navbar-brand brand-font text-navy fw-bold fs-2" href="index.html" style="color:var(--ap-navy)">
+        <i class="bi bi-bag-heart-fill" style="color:var(--ap-gold)"></i> AP-Shopper's
+      </a>
+
+      <!-- Mobile: cart + toggler -->
+      <div class="d-flex align-items-center gap-2 d-lg-none ms-auto">
+        <button class="cart-btn btn btn-sm position-relative" id="cartButtonMobile">
+          <i class="bi bi-bag"></i>
+          <span class="badge position-absolute top-0 start-100 translate-middle bg-danger rounded-pill"
+            id="cartBadge">0</span>
+        </button>
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+
+      <!-- Desktop Nav -->
+      <div class="collapse navbar-collapse" id="NavbarNav">
+        <ul class="navbar-nav mx-auto gap-1">
+          <li class="nav-item"><a href="index.html" class="nav-link active">Home</a></li>
+          <li class="nav-item"><a href="Contact.html" class="nav-link">Contact</a></li>
+        </ul>
+
+        <!-- Desktop Search -->
+        <div class="search-wrapper me-3" style="width:240px">
+          <i class="bi bi-search search-icon"></i>
+          <input type="text" id="searchInput" class="form-control form-control-sm" placeholder="Search products…">
+        </div>
+
+        <!-- Cart Button -->
+        <button class="cart-btn btn position-relative me-3" id="cartButton">
+          <i class="bi bi-bag me-1"></i>Cart
+          <span class="badge position-absolute top-0 start-100 translate-middle bg-danger rounded-pill"
+            id="cartBadge">0</span>
+        </button>
+
+        <!-- Auth Buttons -->
+        <div class="d-flex gap-2" id="auth-Buttons">
+          <a href="Login.html" class="btn btn-ap-outline btn-sm">Login</a>
+          <a href="Register.html" class="btn btn-ap-primary btn-sm">Register</a>
+        </div>
+      </div>
+
+    </div>
+  </nav>
+
+  <!-- ══════════════════════════════════════════
+       OFFCANVAS MOBILE MENU
+  ════════════════════════════════════════════ -->
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="mobileMenu" aria-labelledby="mobileMenuLabel">
+    <div class="offcanvas-header border-bottom">
+      <h5 class="offcanvas-title brand-font fs-3" id="mobileMenuLabel" style="color:var(--ap-navy)">
+        <i class="bi bi-bag-heart-fill" style="color:var(--ap-gold)"></i> AP-Shopper's
+      </h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+    </div>
+    <div class="offcanvas-body d-flex flex-column">
+      <ul class="navbar-nav flex-column mb-3">
+        <li class="nav-item"><a href="index.html" class="nav-link"><i class="bi bi-house me-2"></i>Home</a></li>
+        <li class="nav-item"><a href="Contact.html" class="nav-link"><i class="bi bi-envelope me-2"></i>Contact</a></li>
+        <li class="nav-item"><a href="Cart.html" class="nav-link"><i class="bi bi-bag me-2"></i>Cart</a></li>
+      </ul>
+      <div class="search-wrapper mb-3">
+        <i class="bi bi-search search-icon"></i>
+        <input type="text" id="searchInputMobile" class="form-control" placeholder="Search products…">
+      </div>
+      <div class="mt-auto d-grid gap-2">
+        <a href="Login.html" class="btn btn-ap-outline">Login</a>
+        <a href="Register.html" class="btn btn-ap-primary">Register</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       HERO CAROUSEL
+  ════════════════════════════════════════════ -->
+  <div id="heroCarousel" class="carousel slide hero-carousel" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active"></button>
+      <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1"></button>
+      <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2"></button>
+    </div>
+    <div class="carousel-inner">
+      <div class="carousel-item active" data-bs-interval="3500">
+        <!-- Gradient fallback when images are missing -->
+        <div class="w-100"
+          style="height:580px;background:linear-gradient(135deg,#0f1e3c 0%,#1a3566 60%,#c9a84c 100%);display:flex;align-items:center;justify-content:center;">
+          <div class="text-center text-white px-4">
+            <div class="badge bg-warning text-dark mb-3 px-3 py-2 rounded-pill fs-6">New Arrivals</div>
+            <h1 class="heading-font display-4 fw-bold">Discover Your Style</h1>
+            <p class="fs-5 mb-4 opacity-75">Explore 100+ curated products across all categories</p>
+            <a href="#products" class="btn btn-ap-gold btn-lg px-5">Shop Now <i class="bi bi-arrow-right ms-2"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-item" data-bs-interval="3500">
+        <div class="w-100"
+          style="height:580px;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);display:flex;align-items:center;justify-content:center;">
+          <div class="text-center text-white px-4">
+            <div class="badge bg-danger mb-3 px-3 py-2 rounded-pill fs-6">Up to 50% Off</div>
+            <h1 class="heading-font display-4 fw-bold">Seasonal Sale</h1>
+            <p class="fs-5 mb-4 opacity-75">Don't miss our biggest sale of the year</p>
+            <a href="#products" class="btn btn-ap-gold btn-lg px-5">View Deals <i
+                class="bi bi-lightning-fill ms-2"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-item" data-bs-interval="3500">
+        <div class="w-100"
+          style="height:580px;background:linear-gradient(135deg,#2d1b69 0%,#11998e 100%);display:flex;align-items:center;justify-content:center;">
+          <div class="text-center text-white px-4">
+            <div class="badge bg-success mb-3 px-3 py-2 rounded-pill fs-6">Free Shipping</div>
+            <h1 class="heading-font display-4 fw-bold">Premium Quality</h1>
+            <p class="fs-5 mb-4 opacity-75">Free shipping on all orders above ₹999</p>
+            <a href="#products" class="btn btn-ap-gold btn-lg px-5">Explore <i class="bi bi-stars ms-2"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon"></span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon"></span>
+    </button>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       STATS BAR
+  ════════════════════════════════════════════ -->
+  <div class="py-3" style="background:var(--ap-navy)">
+    <div class="container-xl">
+      <div class="row text-center text-white g-2">
+        <div class="col-6 col-md-3">
+          <i class="bi bi-truck fs-5" style="color:var(--ap-gold)"></i>
+          <div class="small fw-semibold">Free Shipping</div>
+          <div class="text-white-50" style="font-size:.75rem">Orders over ₹999</div>
+        </div>
+        <div class="col-6 col-md-3">
+          <i class="bi bi-shield-check fs-5" style="color:var(--ap-gold)"></i>
+          <div class="small fw-semibold">Secure Payment</div>
+          <div class="text-white-50" style="font-size:.75rem">100% Protected</div>
+        </div>
+        <div class="col-6 col-md-3">
+          <i class="bi bi-arrow-counterclockwise fs-5" style="color:var(--ap-gold)"></i>
+          <div class="small fw-semibold">Easy Returns</div>
+          <div class="text-white-50" style="font-size:.75rem">30-Day Policy</div>
+        </div>
+        <div class="col-6 col-md-3">
+          <i class="bi bi-headset fs-5" style="color:var(--ap-gold)"></i>
+          <div class="small fw-semibold">24/7 Support</div>
+          <div class="text-white-50" style="font-size:.75rem">Always here</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       PRODUCTS SECTION
+  ════════════════════════════════════════════ -->
+  <section id="products" class="py-5">
+    <div class="container-xl">
+
+      <!-- Section Header -->
+      <div
+        class="d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between mb-4 gap-3">
+        <div>
+          <span class="section-title">Our Products</span>
+          <p class="text-muted mt-3 mb-0" id="productCount">Loading…</p>
+        </div>
+        <!-- Sort Dropdown -->
+        <div class="dropdown">
+          <button class="btn btn-ap-outline btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown">
+            <i class="bi bi-sort-down me-1"></i>Sort By
+          </button>
+          <ul class="dropdown-menu shadow border-0" style="border-radius:12px;min-width:180px">
+            <li><a class="dropdown-item" href="#" onclick="sortProducts('default')">Default</a></li>
+            <li><a class="dropdown-item" href="#" onclick="sortProducts('price-asc')">Price: Low → High</a></li>
+            <li><a class="dropdown-item" href="#" onclick="sortProducts('price-desc')">Price: High → Low</a></li>
+            <li><a class="dropdown-item" href="#" onclick="sortProducts('rating')">Top Rated</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Filter Pills (scrollable on mobile) -->
+      <div class="mb-4" style="overflow-x:auto;white-space:nowrap;padding-bottom:4px">
+        <div id="filter-buttons-container" class="d-inline-flex gap-2"></div>
+      </div>
+
+      <!-- Loading Spinner -->
+      <div id="loadingSpinner" class="text-center py-5">
+        <div class="spinner-grow" style="color:var(--ap-gold)" role="status">
+          <span class="visually-hidden">Loading…</span>
+        </div>
+        <p class="mt-3 text-muted heading-font">Fetching products…</p>
+      </div>
+
+      <!-- Product Grid -->
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-4" id="product-list"></div>
+
+      <!-- No Results -->
+      <div id="noResults" class="text-center py-5 d-none">
+        <i class="bi bi-search display-1" style="color:var(--ap-gold)"></i>
+        <h4 class="heading-font mt-3">No products found</h4>
+        <p class="text-muted">Try a different search or category.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       QUICK VIEW MODAL
+  ════════════════════════════════════════════ -->
+  <div class="modal fade" id="quickViewModal" tabindex="-1" aria-labelledby="quickViewLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content border-0" style="border-radius:20px;overflow:hidden">
+        <div class="modal-header border-0 pb-0">
+          <h5 class="modal-title heading-font" id="quickViewLabel">Quick View</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body" id="quickViewBody">
+          <!-- Filled by JS -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       FOOTER
+  ════════════════════════════════════════════ -->
+  <footer class="ap-footer">
+    <div class="container-xl">
+      <div class="row g-4">
+
+        <!-- Brand -->
+        <div class="col-12 col-md-4">
+          <a class="footer-brand d-block mb-2" href="#">
+            <i class="bi bi-bag-heart-fill"></i> AP-Shopper's
+          </a>
+          <p class="opacity-75" style="font-size:.9rem">Your one-stop destination for premium fashion, electronics, and
+            lifestyle products.</p>
+          <div class="d-flex gap-2 mt-3">
+            <a href="#" class="social-link text-white"><i class="bi bi-facebook"></i></a>
+            <a href="#" class="social-link text-white"><i class="bi bi-instagram"></i></a>
+            <a href="#" class="social-link text-white"><i class="bi bi-twitter-x"></i></a>
+            <a href="#" class="social-link text-white"><i class="bi bi-whatsapp"></i></a>
+            <a href="#" class="social-link text-white"><i class="bi bi-youtube"></i></a>
+          </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="col-6 col-md-2">
+          <h5>Quick Links</h5>
+          <ul class="list-unstyled">
+            <li class="mb-1"><a href="index.html"><i class="bi bi-chevron-right me-1"></i>Home</a></li>
+            <li class="mb-1"><a href="#"><i class="bi bi-chevron-right me-1"></i>About Us</a></li>
+            <li class="mb-1"><a href="Contact.html"><i class="bi bi-chevron-right me-1"></i>Contact</a></li>
+            <li class="mb-1"><a href="#"><i class="bi bi-chevron-right me-1"></i>Careers</a></li>
+          </ul>
+        </div>
+
+        <!-- Customer Service -->
+        <div class="col-6 col-md-2">
+          <h5>Support</h5>
+          <ul class="list-unstyled">
+            <li class="mb-1"><a href="#"><i class="bi bi-chevron-right me-1"></i>Returns</a></li>
+            <li class="mb-1"><a href="#"><i class="bi bi-chevron-right me-1"></i>Refunds</a></li>
+            <li class="mb-1"><a href="#"><i class="bi bi-chevron-right me-1"></i>Cashback</a></li>
+            <li class="mb-1"><a href="#"><i class="bi bi-chevron-right me-1"></i>Track Order</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact Info -->
+        <div class="col-12 col-md-4">
+          <h5>Contact Us</h5>
+          <ul class="list-unstyled">
+            <li class="mb-2 opacity-75"><i class="bi bi-geo-alt-fill me-2" style="color:var(--ap-gold)"></i>
+              Lucknow, INDIA</li>
+            <li class="mb-2 opacity-75"><i class="bi bi-telephone-fill me-2" style="color:var(--ap-gold)"></i>+91
+              9519244202</li>
+            <li class="mb-2"><i class="bi bi-envelope-fill me-2" style="color:var(--ap-gold)"></i><a
+                href="mailto:abhaypandeyap32@gmail.com">abhaypandeyap32@gmail.com</a></li>
+          </ul>
+          <!-- Newsletter -->
+          <div class="input-group mt-2">
+            <input type="email" class="form-control form-control-sm" placeholder="Your email…"
+              style="border-radius:50px 0 0 50px;border:none">
+            <button class="btn btn-ap-gold btn-sm" style="border-radius:0 50px 50px 0">Subscribe</button>
+          </div>
+        </div>
+      </div>
+
+      <hr class="footer-divider my-4">
+
+      <div class="row align-items-center">
+        <div class="col-md-6 text-center text-md-start opacity-75 small">
+          &copy; 2025 AP-Shopper's. All rights reserved. &nbsp;|&nbsp; Developer: <strong>Abhay Pandey</strong>
+        </div>
+        <div class="col-md-6 text-center text-md-end mt-2 mt-md-0">
+          <img src="https://img.shields.io/badge/Bootstrap-5.3-7952b3?style=flat-square&logo=bootstrap"
+            alt="Bootstrap 5" class="me-1">
+          <img src="https://img.shields.io/badge/Razorpay-Enabled-0066FF?style=flat-square" alt="Razorpay">
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to Top -->
+  <button id="backToTop" title="Back to top"><i class="bi bi-chevron-up"></i></button>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Auth JS -->
+  <script src="js/auth.js"></script>
+
+  <script>
+    /* ── State ── */
+    let allProducts = [];
+    let currentFilter = 'all';
+    let currentSort = 'default';
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    /* ── Fetch Products ── */
+    async function fetchProducts() {
+      try {
+        const res = await fetch('https://dummyjson.com/products?limit=100');
+        const data = await res.json();
+        allProducts = data.products;
+        document.getElementById('loadingSpinner').classList.add('d-none');
+        generateFilterButtons(allProducts);
+        renderProducts(allProducts);
+        updateCartBadgeAll();
+      } catch (e) {
+        document.getElementById('loadingSpinner').innerHTML =
+          '<div class="alert alert-danger">Failed to load products. Please refresh.</div>';
+      }
+    }
+
+    /* ── Render Products ── */
+    function renderProducts(products) {
+      const list = document.getElementById('product-list');
+      const noRes = document.getElementById('noResults');
+      const count = document.getElementById('productCount');
+
+      list.innerHTML = '';
+      count.textContent = `Showing ${products.length} product${products.length !== 1 ? 's' : ''}`;
+
+      if (products.length === 0) { noRes.classList.remove('d-none'); return; }
+      noRes.classList.add('d-none');
+
+      products.forEach(p => {
+        const stars = '★'.repeat(Math.round(p.rating)) + '☆'.repeat(5 - Math.round(p.rating));
+        const col = document.createElement('div');
+        col.className = 'col';
+        col.innerHTML = `
+          <div class="product-card card h-100">
+            <div class="img-wrapper position-relative">
+              <img src="${p.thumbnail}" alt="${p.title}" loading="lazy"
+                   onerror="this.src='https://via.placeholder.com/300x200?text=No+Image'">
+              <span class="badge badge-category position-absolute top-0 start-0 m-2">${p.category}</span>
+              ${p.discountPercentage > 10 ? `<span class="badge bg-danger position-absolute top-0 end-0 m-2">${Math.round(p.discountPercentage)}% OFF</span>` : ''}
+            </div>
+            <div class="card-body d-flex flex-column">
+              <h6 class="card-title">${p.title}</h6>
+              <p class="card-text flex-grow-1">${p.description}</p>
+              <div class="rating-stars mb-1">${stars} <small class="text-muted">(${p.rating})</small></div>
+              <div class="price-tag mb-3">₹<span>${p.price}</span></div>
+              <div class="d-grid gap-2">
+                <button class="btn btn-ap-primary btn-sm add-to-cart" data-id="${p.id}">
+                  <i class="bi bi-bag-plus me-1"></i>Add to Cart
+                </button>
+                <div class="d-flex gap-2">
+                  <button class="btn btn-ap-outline btn-sm flex-grow-1 view-details" data-id="${p.id}">
+                    <i class="bi bi-eye me-1"></i>Details
+                  </button>
+                  <button class="btn btn-outline-secondary btn-sm quick-view" data-id="${p.id}" title="Quick View">
+                    <i class="bi bi-zoom-in"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>`;
+        list.appendChild(col);
+      });
+
+      /* Add to Cart */
+      document.querySelectorAll('.add-to-cart').forEach(btn =>
+        btn.addEventListener('click', function () { addToCart(parseInt(this.dataset.id)); }));
+      /* View Details */
+      document.querySelectorAll('.view-details').forEach(btn =>
+        btn.addEventListener('click', function () { viewDetails(parseInt(this.dataset.id)); }));
+      /* Quick View */
+      document.querySelectorAll('.quick-view').forEach(btn =>
+        btn.addEventListener('click', function () { openQuickView(parseInt(this.dataset.id)); }));
+    }
+
+    /* ── Filter ── */
+    function generateFilterButtons(products) {
+      const container = document.getElementById('filter-buttons-container');
+      const cats = [...new Set(products.map(p => p.category))];
+      container.innerHTML = '';
+
+      const makeBtn = (label, value) => {
+        const btn = document.createElement('button');
+        btn.className = `btn btn-sm ${value === 'all' ? 'btn-ap-primary' : 'btn-outline-secondary'} rounded-pill`;
+        btn.textContent = value === 'all' ? '🛍 All' : label.charAt(0).toUpperCase() + label.slice(1);
+        btn.dataset.cat = value;
+        btn.addEventListener('click', () => {
+          currentFilter = value;
+          container.querySelectorAll('button').forEach(b => {
+            b.className = `btn btn-sm ${b.dataset.cat === value ? 'btn-ap-primary' : 'btn-outline-secondary'} rounded-pill`;
+          });
+          applyFilters();
+        });
+        container.appendChild(btn);
+      };
+
+      makeBtn('All', 'all');
+      cats.forEach(c => makeBtn(c, c));
+    }
+
+    /* ── Sort ── */
+    function sortProducts(key) { currentSort = key; applyFilters(); }
+
+    /* ── Apply Filters + Sort ── */
+    function applyFilters() {
+      let list = currentFilter === 'all' ? [...allProducts] : allProducts.filter(p => p.category === currentFilter);
+      const q = document.getElementById('searchInput')?.value.toLowerCase() || '';
+      if (q) list = list.filter(p => p.title.toLowerCase().includes(q) || p.description.toLowerCase().includes(q));
+      if (currentSort === 'price-asc') list.sort((a, b) => a.price - b.price);
+      if (currentSort === 'price-desc') list.sort((a, b) => b.price - a.price);
+      if (currentSort === 'rating') list.sort((a, b) => b.rating - a.rating);
+      renderProducts(list);
+    }
+
+    /* ── Search ── */
+    ['searchInput', 'searchInputMobile'].forEach(id => {
+      document.getElementById(id)?.addEventListener('input', applyFilters);
+    });
+
+    /* ── Quick View ── */
+    function openQuickView(id) {
+      const p = allProducts.find(x => x.id === id);
+      if (!p) return;
+      document.getElementById('quickViewLabel').textContent = p.title;
+      document.getElementById('quickViewBody').innerHTML = `
+        <div class="row g-3">
+          <div class="col-md-5">
+            <div class="details-img-wrapper" style="height:260px">
+              <img src="${p.thumbnail}" alt="${p.title}" style="max-height:240px;object-fit:contain">
+            </div>
+          </div>
+          <div class="col-md-7">
+            <span class="badge rounded-pill mb-2" style="background:var(--ap-light);color:var(--ap-navy)">${p.category}</span>
+            <h5 class="heading-font">${p.title}</h5>
+            <p class="text-muted small">${p.description}</p>
+            <div class="rating-stars mb-2">${'★'.repeat(Math.round(p.rating))}${'☆'.repeat(5 - Math.round(p.rating))} ${p.rating}</div>
+            <div class="price-tag mb-3">₹<span>${p.price}</span>
+              <small class="text-muted text-decoration-line-through ms-2">₹${Math.round(p.price / (1 - p.discountPercentage / 100))}</small>
+            </div>
+            <div class="d-flex gap-2">
+              <button class="btn btn-ap-primary flex-grow-1" onclick="addToCart(${p.id});bootstrap.Modal.getInstance(document.getElementById('quickViewModal')).hide()">
+                <i class="bi bi-bag-plus me-1"></i>Add to Cart
+              </button>
+              <button class="btn btn-ap-outline" onclick="viewDetails(${p.id})">
+                Full Details
+              </button>
+            </div>
+          </div>
+        </div>`;
+      new bootstrap.Modal(document.getElementById('quickViewModal')).show();
+    }
+
+    /* ── Add to Cart ── */
+    function addToCart(id) {
+      const p = allProducts.find(x => x.id === id);
+      if (!p) return;
+      const item = cart.find(x => x.id === id);
+      if (item) item.quantity++; else cart.push({ ...p, quantity: 1 });
+      localStorage.setItem('cart', JSON.stringify(cart));
+      updateCartBadgeAll();
+      showToast(`<strong>${p.title}</strong> added to cart!`);
+    }
+
+    /* ── Cart Badge ── */
+    function updateCartBadgeAll() {
+      const total = cart.reduce((s, i) => s + i.quantity, 0);
+      document.querySelectorAll('#cartBadge').forEach(el => el.textContent = total);
+    }
+
+    /* ── View Details ── */
+    function viewDetails(id) {
+      const p = allProducts.find(x => x.id === id);
+      if (p) { sessionStorage.setItem('selectedProducts', JSON.stringify(p)); window.location.href = 'Details.html'; }
+    }
+
+    /* ── Cart redirects ── */
+    ['cartButton', 'cartButtonMobile'].forEach(id =>
+      document.getElementById(id)?.addEventListener('click', () => window.location.href = 'Cart.html'));
+
+    /* ── Init ── */
+    fetchProducts();
+  </script>
+</body>
+
+</html>

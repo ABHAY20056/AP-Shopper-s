@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AP-Shopper's — Cart</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Playfair+Display:wght@700;800&family=Lato:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Toast Container -->
+  <div id="toastContainer" class="toast-container position-fixed top-0 end-0 p-3"></div>
+
+  <!-- ══════════ NAVBAR ══════════ -->
+  <nav class="navbar navbar-expand-lg ap-navbar fixed-top">
+    <div class="container-xl">
+      <a class="navbar-brand brand-font fw-bold fs-2" href="index.html" style="color:var(--ap-navy)">
+        <i class="bi bi-bag-heart-fill" style="color:var(--ap-gold)"></i> AP-Shopper's
+      </a>
+      <div class="d-flex align-items-center gap-2 d-lg-none ms-auto">
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav mx-auto gap-1">
+          <li class="nav-item"><a href="index.html"   class="nav-link">Home</a></li>
+          <li class="nav-item"><a href="Contact.html" class="nav-link">Contact</a></li>
+          <li class="nav-item"><a href="Cart.html"    class="nav-link active">Cart</a></li>
+        </ul>
+        <div class="d-flex gap-2" id="auth-Buttons">
+          <a href="Login.html"    class="btn btn-ap-outline btn-sm">Login</a>
+          <a href="Register.html" class="btn btn-ap-primary btn-sm">Register</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Offcanvas Mobile -->
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="mobileMenu">
+    <div class="offcanvas-header border-bottom">
+      <h5 class="offcanvas-title brand-font fs-3" style="color:var(--ap-navy)">AP-Shopper's</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+    </div>
+    <div class="offcanvas-body">
+      <ul class="navbar-nav flex-column mb-3">
+        <li class="nav-item"><a href="index.html"   class="nav-link"><i class="bi bi-house me-2"></i>Home</a></li>
+        <li class="nav-item"><a href="Contact.html" class="nav-link"><i class="bi bi-envelope me-2"></i>Contact</a></li>
+        <li class="nav-item"><a href="Cart.html"    class="nav-link"><i class="bi bi-bag me-2"></i>Cart</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ══════════ CART CONTENT ══════════ -->
+  <div class="container-xl" style="margin-top:100px;margin-bottom:3rem">
+
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="mb-4">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="index.html" class="text-decoration-none">Home</a></li>
+        <li class="breadcrumb-item active">Shopping Cart</li>
+      </ol>
+    </nav>
+
+    <h2 class="heading-font mb-4">
+      <i class="bi bi-bag-check me-2" style="color:var(--ap-gold)"></i>
+      Your Shopping Cart
+      <span class="badge rounded-pill ms-2" style="background:var(--ap-light);color:var(--ap-navy);font-size:.6em" id="itemCountBadge">0 items</span>
+    </h2>
+
+    <!-- Empty Cart Alert -->
+    <div id="emptyCartMsg" class="d-none text-center py-5">
+      <i class="bi bi-bag-x display-1" style="color:var(--ap-gold)"></i>
+      <h4 class="heading-font mt-3">Your cart is empty</h4>
+      <p class="text-muted">Browse our products and add something you love!</p>
+      <a href="index.html" class="btn btn-ap-primary px-5 mt-2">
+        <i class="bi bi-arrow-left me-2"></i>Continue Shopping
+      </a>
+    </div>
+
+    <!-- Cart & Summary Row -->
+    <div class="row g-4" id="cartMainContent">
+
+      <!-- Cart Items -->
+      <div class="col-lg-8">
+        <div class="card border-0 shadow-sm" style="border-radius:var(--ap-radius)">
+          <div class="card-body p-0">
+
+            <!-- Desktop Table -->
+            <div class="d-none d-md-block">
+              <table class="table cart-table table-hover mb-0">
+                <thead>
+                  <tr>
+                    <th class="ps-4">Product</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                    <th>Remove</th>
+                  </tr>
+                </thead>
+                <tbody id="cartTableBody"></tbody>
+              </table>
+            </div>
+
+            <!-- Mobile Card List -->
+            <div class="d-md-none p-3" id="cartMobileList"></div>
+
+          </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="d-flex flex-column flex-sm-row gap-2 mt-3">
+          <a href="index.html" class="btn btn-ap-outline flex-grow-1">
+            <i class="bi bi-arrow-left me-2"></i>Continue Shopping
+          </a>
+          <button class="btn btn-outline-danger" id="clearCartBtn">
+            <i class="bi bi-trash me-2"></i>Clear Cart
+          </button>
+        </div>
+      </div>
+
+      <!-- Order Summary -->
+      <div class="col-lg-4">
+        <div class="order-summary">
+          <h5 class="heading-font mb-4">Order Summary</h5>
+
+          <div class="d-flex justify-content-between mb-2">
+            <span class="text-muted">Subtotal</span>
+            <span id="subtotal">₹0</span>
+          </div>
+          <div class="d-flex justify-content-between mb-2">
+            <span class="text-muted">Shipping</span>
+            <span id="shippingCost" class="text-success fw-semibold">Free</span>
+          </div>
+          <div class="d-flex justify-content-between mb-2">
+            <span class="text-muted">Tax (18% GST)</span>
+            <span id="taxAmount">₹0</span>
+          </div>
+          <hr>
+          <div class="d-flex justify-content-between mb-3">
+            <strong class="heading-font fs-5">Total</strong>
+            <strong class="fs-5" style="color:var(--ap-gold)">₹<span id="cart-total">0</span></strong>
+          </div>
+
+          <!-- Coupon -->
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" id="couponInput" placeholder="Coupon code">
+            <button class="btn btn-ap-outline" id="applyCoupon">Apply</button>
+          </div>
+          <div id="couponMsg" class="small mb-3"></div>
+
+          <!-- Progress bar for free shipping -->
+          <div id="shippingProgress" class="mb-3">
+            <div class="d-flex justify-content-between mb-1">
+              <small class="text-muted">Add <strong id="amountToFreeShip">₹999</strong> more for free shipping</small>
+            </div>
+            <div class="progress" style="height:6px;border-radius:3px">
+              <div class="progress-bar" id="shippingBar" role="progressbar" style="background:var(--ap-gold);width:0%"></div>
+            </div>
+          </div>
+
+          <button class="btn btn-ap-gold w-100 py-3 fw-bold fs-5" id="payButton">
+            <i class="bi bi-credit-card me-2"></i>Proceed to Payment
+          </button>
+
+          <!-- Payment icons -->
+          <div class="text-center mt-3">
+            <small class="text-muted d-block mb-2">Secure payment via</small>
+            <div class="d-flex justify-content-center gap-2 flex-wrap">
+              <span class="badge bg-light text-dark border"><i class="bi bi-credit-card me-1"></i>Visa</span>
+              <span class="badge bg-light text-dark border"><i class="bi bi-credit-card-2-front me-1"></i>Mastercard</span>
+              <span class="badge bg-light text-dark border"><i class="bi bi-phone me-1"></i>UPI</span>
+              <span class="badge bg-light text-dark border">Net Banking</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════ SUCCESS MODAL ══════════ -->
+  <div class="modal fade" id="successModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 text-center p-5" style="border-radius:24px">
+        <div class="mb-3">
+          <div style="width:80px;height:80px;background:linear-gradient(135deg,#198754,#2ecc71);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto">
+            <i class="bi bi-check-lg text-white display-5"></i>
+          </div>
+        </div>
+        <h3 class="heading-font">Order Placed!</h3>
+        <p class="text-muted mb-4">Your order has been confirmed and will be delivered to your doorstep soon.</p>
+        <div class="d-flex justify-content-center gap-3">
+          <button class="btn btn-ap-primary" data-bs-dismiss="modal" onclick="window.location.href='index.html'">
+            <i class="bi bi-house me-2"></i>Home
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Confirm Clear Modal -->
+  <div class="modal fade" id="clearConfirmModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+      <div class="modal-content border-0" style="border-radius:16px">
+        <div class="modal-body text-center p-4">
+          <i class="bi bi-exclamation-triangle display-4 text-warning"></i>
+          <h5 class="heading-font mt-2">Clear Cart?</h5>
+          <p class="text-muted small">All items will be removed from your cart.</p>
+          <div class="d-flex gap-2 justify-content-center mt-3">
+            <button class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">Cancel</button>
+            <button class="btn btn-danger btn-sm" id="confirmClearBtn">Yes, Clear</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer (minimal) -->
+  <footer class="ap-footer mt-5 py-3">
+    <div class="container-xl text-center opacity-75 small">
+      &copy; 2025 AP-Shopper's &nbsp;|&nbsp; Developer: <strong>Abhay Pandey</strong>
+    </div>
+  </footer>
+
+  <button id="backToTop" title="Back to top"><i class="bi bi-chevron-up"></i></button>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const FREE_SHIP_THRESHOLD = 999;
+    let discount = 0;
+
+    function renderCart() {
+      const tableBody   = document.getElementById('cartTableBody');
+      const mobileList  = document.getElementById('cartMobileList');
+      const emptyMsg    = document.getElementById('emptyCartMsg');
+      const mainContent = document.getElementById('cartMainContent');
+      const itemBadge   = document.getElementById('itemCountBadge');
+
+      tableBody.innerHTML  = '';
+      mobileList.innerHTML = '';
+
+      const totalQty = cart.reduce((s,i) => s + i.quantity, 0);
+      itemBadge.textContent = `${totalQty} item${totalQty !== 1 ? 's' : ''}`;
+
+      if (cart.length === 0) {
+        emptyMsg.classList.remove('d-none');
+        mainContent.classList.add('d-none');
+        updateSummary();
+        return;
+      }
+      emptyMsg.classList.add('d-none');
+      mainContent.classList.remove('d-none');
+
+      cart.forEach(item => {
+        const lineTotal = (item.price * item.quantity).toFixed(2);
+
+        /* Desktop row */
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td class="ps-4 align-middle">
+            <div class="d-flex align-items-center gap-3">
+              <img src="${item.thumbnail}" alt="${item.title}" style="width:64px;height:64px;object-fit:contain;border-radius:8px;background:var(--ap-light);padding:4px">
+              <div>
+                <div class="fw-semibold" style="font-size:.9rem">${item.title}</div>
+                <small class="text-muted">${item.category}</small>
+              </div>
+            </div>
+          </td>
+          <td class="align-middle">₹${item.price}</td>
+          <td class="align-middle">
+            <div class="d-flex align-items-center gap-2">
+              <button class="qty-btn" onclick="changeQty(${item.id}, -1)">−</button>
+              <span class="fw-bold">${item.quantity}</span>
+              <button class="qty-btn" onclick="changeQty(${item.id},  1)">+</button>
+            </div>
+          </td>
+          <td class="align-middle fw-bold">₹${lineTotal}</td>
+          <td class="align-middle">
+            <button class="btn btn-sm btn-outline-danger rounded-circle" style="width:34px;height:34px" onclick="removeItem(${item.id})">
+              <i class="bi bi-trash"></i>
+            </button>
+          </td>`;
+        tableBody.appendChild(tr);
+
+        /* Mobile card */
+        const card = document.createElement('div');
+        card.className = 'card border-0 mb-3 shadow-sm';
+        card.style.borderRadius = '12px';
+        card.innerHTML = `
+          <div class="card-body p-3">
+            <div class="d-flex gap-3 align-items-start">
+              <img src="${item.thumbnail}" alt="${item.title}" style="width:72px;height:72px;object-fit:contain;border-radius:8px;background:var(--ap-light);padding:4px;flex-shrink:0">
+              <div class="flex-grow-1">
+                <div class="fw-semibold">${item.title}</div>
+                <div class="text-muted small mb-2">₹${item.price} each</div>
+                <div class="d-flex align-items-center justify-content-between">
+                  <div class="d-flex align-items-center gap-2">
+                    <button class="qty-btn" onclick="changeQty(${item.id}, -1)">−</button>
+                    <span class="fw-bold">${item.quantity}</span>
+                    <button class="qty-btn" onclick="changeQty(${item.id},  1)">+</button>
+                  </div>
+                  <div class="fw-bold" style="color:var(--ap-navy)">₹${lineTotal}</div>
+                </div>
+              </div>
+              <button class="btn btn-sm text-danger border-0 p-1" onclick="removeItem(${item.id})">
+                <i class="bi bi-x-circle fs-5"></i>
+              </button>
+            </div>
+          </div>`;
+        mobileList.appendChild(card);
+      });
+
+      updateSummary();
+    }
+
+    function updateSummary() {
+      const subtotal = cart.reduce((s,i) => s + i.price * i.quantity, 0);
+      const tax      = subtotal * 0.18;
+      const shipping = subtotal >= FREE_SHIP_THRESHOLD ? 0 : 99;
+      const total    = subtotal + tax + shipping - discount;
+
+      document.getElementById('subtotal').textContent     = `₹${subtotal.toFixed(2)}`;
+      document.getElementById('taxAmount').textContent    = `₹${tax.toFixed(2)}`;
+      document.getElementById('shippingCost').textContent = shipping === 0 ? 'Free' : `₹${shipping}`;
+      document.getElementById('shippingCost').className   = shipping === 0 ? 'text-success fw-semibold' : 'fw-semibold';
+      document.getElementById('cart-total').textContent   = total.toFixed(2);
+
+      /* Progress bar */
+      const progress = Math.min((subtotal / FREE_SHIP_THRESHOLD) * 100, 100);
+      document.getElementById('shippingBar').style.width  = progress + '%';
+      const remaining = Math.max(FREE_SHIP_THRESHOLD - subtotal, 0);
+      document.getElementById('amountToFreeShip').textContent = remaining > 0 ? `₹${remaining.toFixed(2)}` : '';
+      if (remaining === 0)
+        document.getElementById('shippingProgress').innerHTML =
+          '<div class="alert alert-success py-1 small"><i class="bi bi-truck me-1"></i>You\'ve unlocked free shipping!</div>';
+    }
+
+    function changeQty(id, delta) {
+      const item = cart.find(i => i.id === id);
+      if (!item) return;
+      item.quantity = Math.max(1, item.quantity + delta);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      renderCart();
+    }
+
+    function removeItem(id) {
+      cart = cart.filter(i => i.id !== id);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      showToast('Item removed from cart.', 'error');
+      renderCart();
+    }
+
+    /* Clear cart */
+    document.getElementById('clearCartBtn').addEventListener('click', () =>
+      new bootstrap.Modal(document.getElementById('clearConfirmModal')).show());
+    document.getElementById('confirmClearBtn').addEventListener('click', () => {
+      cart = [];
+      localStorage.removeItem('cart');
+      bootstrap.Modal.getInstance(document.getElementById('clearConfirmModal')).hide();
+      renderCart();
+      showToast('Cart cleared.');
+    });
+
+    /* Coupon */
+    document.getElementById('applyCoupon').addEventListener('click', () => {
+      const code = document.getElementById('couponInput').value.trim().toUpperCase();
+      const msg  = document.getElementById('couponMsg');
+      if (code === 'SAVE10') {
+        discount = cart.reduce((s,i) => s + i.price * i.quantity, 0) * 0.1;
+        msg.innerHTML = '<span class="text-success"><i class="bi bi-check-circle me-1"></i>10% discount applied!</span>';
+      } else if (code === 'FLAT50') {
+        discount = 50;
+        msg.innerHTML = '<span class="text-success"><i class="bi bi-check-circle me-1"></i>₹50 flat discount applied!</span>';
+      } else {
+        discount = 0;
+        msg.innerHTML = '<span class="text-danger"><i class="bi bi-x-circle me-1"></i>Invalid coupon code.</span>';
+      }
+      updateSummary();
+    });
+
+    /* Payment */
+    document.getElementById('payButton').addEventListener('click', () => {
+      const total = parseFloat(document.getElementById('cart-total').textContent);
+      if (total <= 0 || cart.length === 0) { showToast('Cart is empty!', 'error'); return; }
+
+      const options = {
+        key: 'rzp_test_tKSNrBrfZ6MPzt',
+        amount: Math.round(total * 100),
+        currency: 'INR',
+        name: "AP-Shopper's",
+        description: 'Cart Payment',
+        handler: function (response) {
+          localStorage.removeItem('cart');
+          cart = [];
+          renderCart();
+          new bootstrap.Modal(document.getElementById('successModal')).show();
+        },
+        prefill: { name: 'John Doe', email: 'johndoe@example.com', contact: '9519244202' },
+        theme: { color: '#0f1e3c' }
+      };
+      if (typeof Razorpay !== 'undefined') {
+        new Razorpay(options).open();
+      } else {
+        showToast('Payment gateway not available. Simulating…');
+        setTimeout(() => {
+          localStorage.removeItem('cart');
+          cart = [];
+          renderCart();
+          new bootstrap.Modal(document.getElementById('successModal')).show();
+        }, 1000);
+      }
+    });
+
+    renderCart();
+  </script>
+</body>
+</html>

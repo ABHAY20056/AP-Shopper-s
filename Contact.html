@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AP-Shopper's — Contact Us</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Playfair+Display:wght@700;800&family=Lato:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <div id="toastContainer" class="toast-container position-fixed top-0 end-0 p-3"></div>
+
+  <!-- ══════════ NAVBAR ══════════ -->
+  <nav class="navbar navbar-expand-lg ap-navbar fixed-top">
+    <div class="container-xl">
+      <a class="navbar-brand brand-font fw-bold fs-2" href="index.html" style="color:var(--ap-navy)">
+        <i class="bi bi-bag-heart-fill" style="color:var(--ap-gold)"></i> AP-Shopper's
+      </a>
+      <div class="d-flex align-items-center gap-2 d-lg-none ms-auto">
+        <button class="cart-btn btn btn-sm position-relative" onclick="location.href='Cart.html'">
+          <i class="bi bi-bag"></i>
+          <span class="badge position-absolute top-0 start-100 translate-middle bg-danger rounded-pill" id="cartBadge">0</span>
+        </button>
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav mx-auto gap-1">
+          <li class="nav-item"><a href="index.html"   class="nav-link">Home</a></li>
+          <li class="nav-item"><a href="Contact.html" class="nav-link active">Contact</a></li>
+        </ul>
+        <button class="cart-btn btn position-relative me-3" onclick="location.href='Cart.html'">
+          <i class="bi bi-bag me-1"></i>Cart
+          <span class="badge position-absolute top-0 start-100 translate-middle bg-danger rounded-pill" id="cartBadge">0</span>
+        </button>
+        <div class="d-flex gap-2" id="auth-Buttons">
+          <a href="Login.html"    class="btn btn-ap-outline btn-sm">Login</a>
+          <a href="Register.html" class="btn btn-ap-primary btn-sm">Register</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Offcanvas Mobile -->
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="mobileMenu">
+    <div class="offcanvas-header border-bottom">
+      <h5 class="offcanvas-title brand-font fs-3" style="color:var(--ap-navy)">AP-Shopper's</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+    </div>
+    <div class="offcanvas-body">
+      <ul class="navbar-nav flex-column">
+        <li class="nav-item"><a href="index.html"   class="nav-link"><i class="bi bi-house me-2"></i>Home</a></li>
+        <li class="nav-item"><a href="Contact.html" class="nav-link"><i class="bi bi-envelope me-2"></i>Contact</a></li>
+        <li class="nav-item"><a href="Cart.html"    class="nav-link"><i class="bi bi-bag me-2"></i>Cart</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ══════════ HERO ══════════ -->
+  <div style="margin-top:76px;background:linear-gradient(135deg,var(--ap-navy) 0%,#1a3566 100%);padding:4rem 0 3rem">
+    <div class="container-xl text-center text-white">
+      <h1 class="heading-font display-5 fw-bold">Get In Touch</h1>
+      <p class="opacity-75 mb-0">We'd love to hear from you. Send us a message!</p>
+    </div>
+  </div>
+
+  <!-- ══════════ CONTACT INFO CARDS ══════════ -->
+  <div class="container-xl py-5">
+    <div class="row g-4 mb-5">
+      <div class="col-md-4">
+        <div class="card border-0 shadow-sm text-center p-4 h-100" style="border-radius:var(--ap-radius)">
+          <div class="mb-3">
+            <div style="width:60px;height:60px;background:linear-gradient(135deg,var(--ap-navy),#1a3566);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto">
+              <i class="bi bi-geo-alt-fill fs-4 text-white"></i>
+            </div>
+          </div>
+          <h6 class="heading-font fw-bold">Our Office</h6>
+          <p class="text-muted small mb-0">123 Main Street, Anytown<br>USA 12345</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card border-0 shadow-sm text-center p-4 h-100" style="border-radius:var(--ap-radius)">
+          <div class="mb-3">
+            <div style="width:60px;height:60px;background:linear-gradient(135deg,var(--ap-gold),var(--ap-gold-light));border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto">
+              <i class="bi bi-telephone-fill fs-4" style="color:var(--ap-navy)"></i>
+            </div>
+          </div>
+          <h6 class="heading-font fw-bold">Phone</h6>
+          <p class="text-muted small mb-0"><a href="tel:+919519244202" class="text-decoration-none text-muted">+91 9519244202</a></p>
+          <p class="text-muted small mb-0">Mon–Sat, 9am–7pm IST</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card border-0 shadow-sm text-center p-4 h-100" style="border-radius:var(--ap-radius)">
+          <div class="mb-3">
+            <div style="width:60px;height:60px;background:linear-gradient(135deg,#198754,#2ecc71);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto">
+              <i class="bi bi-envelope-fill fs-4 text-white"></i>
+            </div>
+          </div>
+          <h6 class="heading-font fw-bold">Email</h6>
+          <p class="text-muted small mb-0"><a href="mailto:abhaypandeyap32@gmail.com" class="text-decoration-none text-muted">abhaypandeyap32@gmail.com</a></p>
+          <p class="text-muted small mb-0">We reply within 24 hours</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact Form -->
+    <div class="row justify-content-center">
+      <div class="col-lg-7">
+        <div class="auth-card">
+          <h4 class="heading-font mb-4 text-center">Send a Message</h4>
+
+          <form id="contactForm" action="https://formspree.io/f/xpwqdvpg" method="POST" novalidate>
+
+            <!-- Name + Email side by side on md+ -->
+            <div class="row g-3 mb-3">
+              <div class="col-md-6">
+                <div class="form-floating">
+                  <input type="text" class="form-control" id="contactName" name="name" placeholder="Your Name" required>
+                  <label for="contactName"><i class="bi bi-person me-1"></i>Your Name</label>
+                  <div class="invalid-feedback">Please enter your name.</div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-floating">
+                  <input type="email" class="form-control" id="contactEmail" name="email" placeholder="Email" required>
+                  <label for="contactEmail"><i class="bi bi-envelope me-1"></i>Email</label>
+                  <div class="invalid-feedback">Please enter a valid email.</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Subject -->
+            <div class="form-floating mb-3">
+              <select class="form-select" id="contactSubject" name="subject" required>
+                <option value="" selected disabled>Select subject…</option>
+                <option>Order Inquiry</option>
+                <option>Return / Refund</option>
+                <option>Product Question</option>
+                <option>Technical Support</option>
+                <option>Other</option>
+              </select>
+              <label for="contactSubject"><i class="bi bi-chat-dots me-1"></i>Subject</label>
+              <div class="invalid-feedback">Please choose a subject.</div>
+            </div>
+
+            <!-- Message -->
+            <div class="form-floating mb-4">
+              <textarea class="form-control" id="contactMessage" name="message" placeholder="Message" style="height:140px" required></textarea>
+              <label for="contactMessage"><i class="bi bi-pencil me-1"></i>Your Message</label>
+              <div class="invalid-feedback">Please enter a message.</div>
+            </div>
+
+            <!-- Privacy Checkbox -->
+            <div class="form-check mb-4">
+              <input class="form-check-input" type="checkbox" id="privacyCheck" required>
+              <label class="form-check-label small text-muted" for="privacyCheck">
+                I agree to the <a href="#" class="text-decoration-none" style="color:var(--ap-gold)">Privacy Policy</a>
+              </label>
+              <div class="invalid-feedback">You must agree before submitting.</div>
+            </div>
+
+            <button type="submit" class="btn btn-ap-primary w-100 py-3 fw-bold" id="submitBtn">
+              <span id="submitText"><i class="bi bi-send me-2"></i>Send Message</span>
+              <span id="submitSpinner" class="d-none">
+                <span class="spinner-border spinner-border-sm me-2"></span>Sending…
+              </span>
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- FAQ Accordion -->
+      <div class="col-lg-5 mt-4 mt-lg-0">
+        <h5 class="heading-font mb-3">Frequently Asked Questions</h5>
+        <div class="accordion" id="faqAccordion">
+          <div class="accordion-item border-0 mb-2" style="border-radius:12px!important;overflow:hidden;box-shadow:0 2px 8px rgba(15,30,60,.08)">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                How long does delivery take?
+              </button>
+            </h2>
+            <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+              <div class="accordion-body text-muted small">Standard delivery takes 3–7 business days. Express delivery is available for select pin codes within 1–2 days.</div>
+            </div>
+          </div>
+          <div class="accordion-item border-0 mb-2" style="border-radius:12px!important;overflow:hidden;box-shadow:0 2px 8px rgba(15,30,60,.08)">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                What is the return policy?
+              </button>
+            </h2>
+            <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+              <div class="accordion-body text-muted small">We offer a 30-day hassle-free return policy. Items must be in original condition with tags intact.</div>
+            </div>
+          </div>
+          <div class="accordion-item border-0 mb-2" style="border-radius:12px!important;overflow:hidden;box-shadow:0 2px 8px rgba(15,30,60,.08)">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                Are my payments secure?
+              </button>
+            </h2>
+            <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+              <div class="accordion-body text-muted small">Yes! All payments are processed through Razorpay with 256-bit SSL encryption. We never store your card details.</div>
+            </div>
+          </div>
+          <div class="accordion-item border-0" style="border-radius:12px!important;overflow:hidden;box-shadow:0 2px 8px rgba(15,30,60,.08)">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
+                How do I track my order?
+              </button>
+            </h2>
+            <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+              <div class="accordion-body text-muted small">Once shipped, you'll receive a tracking ID via email/SMS. You can track your order in the "My Orders" section of your account.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Social Links -->
+        <div class="mt-4">
+          <h6 class="heading-font mb-3">Follow Us</h6>
+          <div class="d-flex gap-3">
+            <a href="#" class="btn btn-sm btn-outline-primary rounded-circle" style="width:40px;height:40px;display:flex;align-items:center;justify-content:center"><i class="bi bi-facebook"></i></a>
+            <a href="#" class="btn btn-sm btn-outline-danger rounded-circle" style="width:40px;height:40px;display:flex;align-items:center;justify-content:center"><i class="bi bi-instagram"></i></a>
+            <a href="#" class="btn btn-sm btn-outline-info rounded-circle" style="width:40px;height:40px;display:flex;align-items:center;justify-content:center"><i class="bi bi-twitter-x"></i></a>
+            <a href="#" class="btn btn-sm btn-outline-success rounded-circle" style="width:40px;height:40px;display:flex;align-items:center;justify-content:center"><i class="bi bi-whatsapp"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="ap-footer mt-5 py-3">
+    <div class="container-xl text-center opacity-75 small">
+      &copy; 2025 AP-Shopper's &nbsp;|&nbsp; Developer: <strong>Abhay Pandey</strong>
+    </div>
+  </footer>
+
+  <button id="backToTop" title="Back to top"><i class="bi bi-chevron-up"></i></button>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    const form       = document.getElementById('contactForm');
+    const submitBtn  = document.getElementById('submitBtn');
+    const submitText = document.getElementById('submitText');
+    const submitSpinner = document.getElementById('submitSpinner');
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+
+      form.classList.add('was-validated');
+      if (!form.checkValidity()) return;
+
+      /* Show spinner */
+      submitText.classList.add('d-none');
+      submitSpinner.classList.remove('d-none');
+      submitBtn.disabled = true;
+
+      const formData = new FormData(form);
+      fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        headers: { 'Accept': 'application/json' }
+      })
+        .then(r => r.json())
+        .then(data => {
+          submitText.classList.remove('d-none');
+          submitSpinner.classList.add('d-none');
+          submitBtn.disabled = false;
+          if (data.ok) {
+            showToast('Message sent! We\'ll get back to you soon.');
+            form.reset();
+            form.classList.remove('was-validated');
+          } else {
+            showToast('Failed to send message. Please try again.', 'error');
+          }
+        })
+        .catch(() => {
+          submitText.classList.remove('d-none');
+          submitSpinner.classList.add('d-none');
+          submitBtn.disabled = false;
+          showToast('Network error. Please try again.', 'error');
+        });
+    });
+  </script>
+</body>
+</html>

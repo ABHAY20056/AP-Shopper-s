@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AP-Shopper's — Product Details</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Playfair+Display:wght@700;800&family=Lato:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <div id="toastContainer" class="toast-container position-fixed top-0 end-0 p-3"></div>
+
+  <!-- ══════════ NAVBAR ══════════ -->
+  <nav class="navbar navbar-expand-lg ap-navbar fixed-top">
+    <div class="container-xl">
+      <a class="navbar-brand brand-font fw-bold fs-2" href="index.html" style="color:var(--ap-navy)">
+        <i class="bi bi-bag-heart-fill" style="color:var(--ap-gold)"></i> AP-Shopper's
+      </a>
+      <div class="d-flex align-items-center gap-2 d-lg-none ms-auto">
+        <button class="cart-btn btn btn-sm position-relative" id="cartButtonMobile">
+          <i class="bi bi-bag"></i>
+          <span class="badge position-absolute top-0 start-100 translate-middle bg-danger rounded-pill" id="cartBadge">0</span>
+        </button>
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav mx-auto gap-1">
+          <li class="nav-item"><a href="index.html"   class="nav-link">Home</a></li>
+          <li class="nav-item"><a href="Contact.html" class="nav-link">Contact</a></li>
+        </ul>
+        <button class="cart-btn btn position-relative me-3" id="cartButton">
+          <i class="bi bi-bag me-1"></i>Cart
+          <span class="badge position-absolute top-0 start-100 translate-middle bg-danger rounded-pill" id="cartBadge">0</span>
+        </button>
+        <div class="d-flex gap-2" id="auth-Buttons">
+          <a href="Login.html"    class="btn btn-ap-outline btn-sm">Login</a>
+          <a href="Register.html" class="btn btn-ap-primary btn-sm">Register</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Offcanvas -->
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="mobileMenu">
+    <div class="offcanvas-header border-bottom">
+      <h5 class="offcanvas-title brand-font fs-3" style="color:var(--ap-navy)">AP-Shopper's</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+    </div>
+    <div class="offcanvas-body">
+      <ul class="navbar-nav flex-column">
+        <li class="nav-item"><a href="index.html"   class="nav-link"><i class="bi bi-house me-2"></i>Home</a></li>
+        <li class="nav-item"><a href="Contact.html" class="nav-link"><i class="bi bi-envelope me-2"></i>Contact</a></li>
+        <li class="nav-item"><a href="Cart.html"    class="nav-link"><i class="bi bi-bag me-2"></i>Cart</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ══════════ MAIN ══════════ -->
+  <div class="container-xl" style="margin-top:100px;margin-bottom:3rem">
+
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="mb-4">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="index.html" class="text-decoration-none">Home</a></li>
+        <li class="breadcrumb-item active" id="breadcrumbTitle">Product Details</li>
+      </ol>
+    </nav>
+
+    <!-- Loading -->
+    <div id="detailsLoader" class="text-center py-5">
+      <div class="spinner-grow" style="color:var(--ap-gold)"></div>
+      <p class="mt-3 text-muted">Loading product…</p>
+    </div>
+
+    <!-- Product Detail -->
+    <div id="detailsContent" class="d-none">
+      <div class="row g-5">
+
+        <!-- Image & Gallery -->
+        <div class="col-lg-5">
+          <div class="details-img-wrapper mb-3" id="mainImgWrapper">
+            <img id="mainProductImg" src="" alt="Product" class="img-fluid">
+          </div>
+          <!-- Thumbnail strip -->
+          <div class="d-flex gap-2 flex-wrap justify-content-center" id="thumbStrip"></div>
+        </div>
+
+        <!-- Info -->
+        <div class="col-lg-7">
+          <span class="badge rounded-pill mb-2 px-3 py-2" style="background:var(--ap-light);color:var(--ap-navy)" id="det-category"></span>
+          <h2 class="heading-font mb-2" id="det-title"></h2>
+
+          <!-- Rating -->
+          <div class="d-flex align-items-center gap-2 mb-3">
+            <div class="rating-stars fs-5" id="det-stars"></div>
+            <span class="text-muted small" id="det-rating-text"></span>
+          </div>
+
+          <!-- Price Row -->
+          <div class="d-flex align-items-center gap-3 mb-3">
+            <div class="price-tag" id="det-price"></div>
+            <span class="text-muted text-decoration-line-through" id="det-original-price"></span>
+            <span class="badge bg-danger rounded-pill" id="det-discount"></span>
+          </div>
+
+          <p class="text-muted mb-4" id="det-desc"></p>
+
+          <!-- Stock Alert -->
+          <div id="det-stock-alert" class="alert py-2 mb-3" style="border-radius:10px"></div>
+
+          <!-- Qty Selector + Add to Cart -->
+          <div class="d-flex align-items-center gap-3 mb-4 flex-wrap">
+            <div class="d-flex align-items-center gap-2">
+              <button class="qty-btn" id="qtyMinus">−</button>
+              <span class="fw-bold fs-5" id="qtyDisplay">1</span>
+              <button class="qty-btn" id="qtyPlus">+</button>
+            </div>
+            <button class="btn btn-ap-primary flex-grow-1" id="addToCartBtn">
+              <i class="bi bi-bag-plus me-2"></i>Add to Cart
+            </button>
+            <button class="btn btn-ap-gold" id="buyNowBtn">
+              <i class="bi bi-lightning-fill me-1"></i>Buy Now
+            </button>
+          </div>
+
+          <!-- Product Info Accordion -->
+          <div class="accordion" id="productAccordion">
+            <div class="accordion-item border-0 mb-2" style="border-radius:12px!important;overflow:hidden;box-shadow:0 2px 8px rgba(15,30,60,.08)">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#specCollapse">
+                  <i class="bi bi-info-circle me-2" style="color:var(--ap-gold)"></i>Specifications
+                </button>
+              </h2>
+              <div id="specCollapse" class="accordion-collapse collapse" data-bs-parent="#productAccordion">
+                <div class="accordion-body">
+                  <table class="table table-sm table-borderless" id="det-specs-table"></table>
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item border-0 mb-2" style="border-radius:12px!important;overflow:hidden;box-shadow:0 2px 8px rgba(15,30,60,.08)">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#shippingCollapse">
+                  <i class="bi bi-truck me-2" style="color:var(--ap-gold)"></i>Shipping & Warranty
+                </button>
+              </h2>
+              <div id="shippingCollapse" class="accordion-collapse collapse" data-bs-parent="#productAccordion">
+                <div class="accordion-body" id="det-ship-warranty"></div>
+              </div>
+            </div>
+            <div class="accordion-item border-0" style="border-radius:12px!important;overflow:hidden;box-shadow:0 2px 8px rgba(15,30,60,.08)">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#qrCollapse">
+                  <i class="bi bi-qr-code me-2" style="color:var(--ap-gold)"></i>QR Code & Barcode
+                </button>
+              </h2>
+              <div id="qrCollapse" class="accordion-collapse collapse" data-bs-parent="#productAccordion">
+                <div class="accordion-body text-center" id="det-qr"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reviews -->
+      <div class="mt-5">
+        <h4 class="section-title mb-4">Customer Reviews</h4>
+        <div class="row g-3" id="reviewsContainer"></div>
+        <div id="noReviews" class="text-muted text-center py-3 d-none">No reviews yet.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="ap-footer mt-5 py-3">
+    <div class="container-xl text-center opacity-75 small">
+      &copy; 2025 AP-Shopper's &nbsp;|&nbsp; Developer: <strong>Abhay Pandey</strong>
+    </div>
+  </footer>
+
+  <button id="backToTop" title="Back to top"><i class="bi bi-chevron-up"></i></button>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    let qtyVal = 1;
+    let product = null;
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const raw = sessionStorage.getItem('selectedProducts');
+      if (!raw) { window.location.href = 'index.html'; return; }
+      product = JSON.parse(raw);
+
+      document.getElementById('detailsLoader').classList.add('d-none');
+      document.getElementById('detailsContent').classList.remove('d-none');
+      document.getElementById('breadcrumbTitle').textContent = product.title;
+
+      /* Main image */
+      document.getElementById('mainProductImg').src = product.thumbnail;
+      document.getElementById('mainProductImg').alt = product.title;
+
+      /* Thumbnail strip */
+      const thumbStrip = document.getElementById('thumbStrip');
+      const imgs = product.images?.length ? product.images : [product.thumbnail];
+      imgs.forEach((src, i) => {
+        const thumb = document.createElement('img');
+        thumb.src   = src;
+        thumb.alt   = `View ${i+1}`;
+        thumb.style.cssText = 'width:64px;height:64px;object-fit:contain;border-radius:8px;cursor:pointer;border:2px solid transparent;background:var(--ap-light);padding:4px;transition:.2s';
+        if (i === 0) thumb.style.borderColor = 'var(--ap-gold)';
+        thumb.addEventListener('click', () => {
+          document.getElementById('mainProductImg').src = src;
+          thumbStrip.querySelectorAll('img').forEach(t => t.style.borderColor = 'transparent');
+          thumb.style.borderColor = 'var(--ap-gold)';
+        });
+        thumbStrip.appendChild(thumb);
+      });
+
+      /* Category, title, desc */
+      document.getElementById('det-category').textContent = product.category;
+      document.getElementById('det-title').textContent    = product.title;
+      document.getElementById('det-desc').textContent     = product.description;
+
+      /* Stars */
+      const r = Math.round(product.rating);
+      document.getElementById('det-stars').textContent = '★'.repeat(r) + '☆'.repeat(5-r);
+      document.getElementById('det-rating-text').textContent = `${product.rating} / 5 (${product.reviews?.length || 0} reviews)`;
+
+      /* Price */
+      const orig = Math.round(product.price / (1 - product.discountPercentage / 100));
+      document.getElementById('det-price').innerHTML          = `₹<span>${product.price}</span>`;
+      document.getElementById('det-original-price').textContent = `₹${orig}`;
+      document.getElementById('det-discount').textContent       = `${Math.round(product.discountPercentage)}% OFF`;
+
+      /* Stock */
+      const stockEl = document.getElementById('det-stock-alert');
+      if (product.availabilityStatus === 'In Stock') {
+        stockEl.className = 'alert alert-success py-2 mb-3';
+        stockEl.innerHTML = '<i class="bi bi-check-circle me-2"></i>In Stock';
+      } else {
+        stockEl.className = 'alert alert-warning py-2 mb-3';
+        stockEl.innerHTML = '<i class="bi bi-exclamation-triangle me-2"></i>' + product.availabilityStatus;
+      }
+
+      /* Specs */
+      const specs = [
+        ['Brand',      product.brand],
+        ['SKU',        product.sku],
+        ['Weight',     product.weight ? product.weight + ' g' : '—'],
+        ['Dimensions', product.dimensions ? `${product.dimensions.width} × ${product.dimensions.height} × ${product.dimensions.depth} cm` : '—'],
+        ['Barcode',    product.meta?.barcode || '—'],
+      ];
+      document.getElementById('det-specs-table').innerHTML =
+        specs.map(([k,v]) => `<tr><th class="text-muted fw-normal w-50">${k}</th><td class="fw-semibold">${v}</td></tr>`).join('');
+
+      /* Ship & Warranty */
+      document.getElementById('det-ship-warranty').innerHTML = `
+        <p><i class="bi bi-truck me-2" style="color:var(--ap-gold)"></i><strong>Shipping:</strong> ${product.shippingInformation || '—'}</p>
+        <p class="mb-0"><i class="bi bi-shield-check me-2" style="color:var(--ap-gold)"></i><strong>Warranty:</strong> ${product.warrantyInformation || '—'}</p>`;
+
+      /* QR */
+      document.getElementById('det-qr').innerHTML = product.meta?.qrCode
+        ? `<img src="${product.meta.qrCode}" alt="QR Code" style="width:120px;height:120px"><p class="text-muted small mt-2">Scan to view this product</p>`
+        : '<p class="text-muted">No QR code available.</p>';
+
+      /* Reviews */
+      const revContainer = document.getElementById('reviewsContainer');
+      if (product.reviews?.length) {
+        product.reviews.forEach(rev => {
+          const s = Math.round(rev.rating);
+          const col = document.createElement('div');
+          col.className = 'col-md-6 col-lg-4';
+          col.innerHTML = `
+            <div class="review-card card p-4">
+              <div class="d-flex align-items-center gap-3 mb-3">
+                <div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--ap-navy),var(--ap-gold));display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;flex-shrink:0">
+                  ${rev.reviewerName.charAt(0)}
+                </div>
+                <div>
+                  <div class="fw-semibold">${rev.reviewerName}</div>
+                  <div class="text-muted small">${new Date(rev.date).toLocaleDateString('en-IN',{dateStyle:'medium'})}</div>
+                </div>
+              </div>
+              <div class="review-stars mb-2">${'★'.repeat(s)}${'☆'.repeat(5-s)}</div>
+              <p class="mb-0 small text-muted">${rev.comment}</p>
+            </div>`;
+          revContainer.appendChild(col);
+        });
+      } else {
+        document.getElementById('noReviews').classList.remove('d-none');
+      }
+
+      /* Qty controls */
+      document.getElementById('qtyMinus').addEventListener('click', () => {
+        if (qtyVal > 1) { qtyVal--; document.getElementById('qtyDisplay').textContent = qtyVal; }
+      });
+      document.getElementById('qtyPlus').addEventListener('click', () => {
+        qtyVal++; document.getElementById('qtyDisplay').textContent = qtyVal;
+      });
+
+      /* Add to Cart */
+      document.getElementById('addToCartBtn').addEventListener('click', () => {
+        const item = cart.find(i => i.id === product.id);
+        if (item) item.quantity += qtyVal; else cart.push({ ...product, quantity: qtyVal });
+        localStorage.setItem('cart', JSON.stringify(cart));
+        syncCartBadge();
+        showToast(`<strong>${product.title}</strong> added to cart!`);
+      });
+
+      /* Buy Now */
+      document.getElementById('buyNowBtn').addEventListener('click', () => {
+        const item = cart.find(i => i.id === product.id);
+        if (item) item.quantity += qtyVal; else cart.push({ ...product, quantity: qtyVal });
+        localStorage.setItem('cart', JSON.stringify(cart));
+        window.location.href = 'Cart.html';
+      });
+
+      ['cartButton','cartButtonMobile'].forEach(id =>
+        document.getElementById(id)?.addEventListener('click', () => window.location.href = 'Cart.html'));
+    });
+  </script>
+</body>
+</html>
